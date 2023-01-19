@@ -1,7 +1,21 @@
 import Head from 'next/head'
+import { useEffect, useState } from 'react'
+import { IQuestionList } from '@/src/types/Questionlist'
+import { getQuestions, selectedValue, useAppDispatch, useAppSelector } from '@/src/store/reducers/questionListReducer'
 import styles from '@/styles/Home.module.css'
+import Link from 'next/link'
 
 export default function Home() {
+  const dispatch = useAppDispatch()
+	const questions = useAppSelector(selectedValue) as IQuestionList
+	const getAllQuestions = () => dispatch(getQuestions())
+
+	useEffect(() => {
+		getAllQuestions()
+	}, [])
+
+  console.log('questions', questions)
+
   return (
     <>
       <Head>
@@ -13,6 +27,7 @@ export default function Home() {
       <h1 className="text-3xl font-bold underline">
         Hello world from tailwind!
       </h1>
+      <Link href={`single-question/${12}`}>Single Question</Link>
     </>
   )
 }
