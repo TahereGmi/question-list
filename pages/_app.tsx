@@ -1,4 +1,4 @@
-import '@/src//styles/globals.css'
+import '@/src/assets/styles/globals.scss'
 import type { AppProps } from 'next/app'
 import { store } from '@/src/store/store'
 import { Provider } from 'react-redux'

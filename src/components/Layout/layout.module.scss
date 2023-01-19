@@ -1,0 +1,21 @@
+@import '../../assets/styles/variables';
+
+.header {
+    width: 100%;
+    height: 68px;
+    background-color: #fff;
+}
+
+.lineHeight68 {
+    line-height: 68px;
+}
+
+.bgGreen {
+    background-color: $green;
+    color: $white;
+}
+
+.main {
+    background-color: $gray_bg;
+    height: calc(100vh - 64px);
+}
