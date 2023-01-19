@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Layout from '@/src/components/Layout/layout'
+import Layout from 'components/Layout/layout'
 
 export default function SingleQuestion() {
   return (

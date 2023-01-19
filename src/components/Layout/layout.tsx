@@ -22,7 +22,7 @@ export default function Layout({
                      <h3 className={`font-extrabold text-2xl isGray ${styles.lineHeight68}`}>لیست سوالات</h3>
                     </div>
                     <button className={`h-8 radius-2.5 text-xs font-normal rounded-l rounded-r mt-4 ml-4 px-4 ${styles.bgGreen}`}>سوال جدید</button>
-                    <div className="isGray font-normal mt-4 text-sm pl-4">طاهره غلامی</div>
+                    <div className="isGray font-normal mt-6 text-sm pl-4">طاهره غلامی</div>
                   </div>
                 </div>
             </header>

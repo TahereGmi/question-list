@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-import { IQuestionList } from '@/src/types/Questionlist'
+import { IQuestionList } from 'types/Questionlist'
 import { RootState, AppDispatch } from '../store'
-import API from '@/src/helpers/API'
+import API from 'helpers/API'
 
 const initialState: IQuestionList = {
   result: [],
