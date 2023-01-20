@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { combineReducers } from 'redux'
 import questionsReducer from './reducers/questionListReducer'
+import toggleModalReducer from './reducers/toggleModalReducer';
 
 const reducers = combineReducers({
   questions: questionsReducer,
+  toggleModal: toggleModalReducer
 });
 
 export const store = configureStore({

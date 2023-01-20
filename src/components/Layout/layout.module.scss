@@ -19,3 +19,26 @@
     background-color: $gray_bg;
     min-height: calc(100vh - 64px);
 }
+
+.modalBlackBg {
+    background-color: rgba($black, 0.5);
+}
+
+.modal {
+    left: 50%;
+    margin-left: -300px;
+    width: 600px;
+    height: 440px;
+    background: #F9F9F9;
+    box-shadow: 0px 3px 8px -1px rgba(50, 50, 71, 0.05), 0px 0px 1px rgba(12, 26, 75, 0.24);
+}
+
+.modalHeader {
+    background-color: #fff;
+    justify-content: space-between;
+    box-shadow: 0px 3px 8px -1px rgba(50, 50, 71, 0.05), 0px 0px 1px rgba(12, 26, 75, 0.24);
+}
+
+.modalTitle {
+    line-height: 48px;
+}

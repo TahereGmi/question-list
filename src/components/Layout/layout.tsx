@@ -1,13 +1,31 @@
 import Head from 'next/head'
+import { useState } from 'react'
 import styles from './layout.module.scss'
+import CloseIcon from '../../../public/images/svg/close.svg'
+import { toggle, useAppDispatch, selectedValue, useAppSelector } from 'store/reducers/toggleModalReducer'
 
-export default function Layout({
+function Layout ({
     children,
     pageTitle,
   }: {
     children: React.ReactNode,
     pageTitle: string
   }) {
+    const dispatch = useAppDispatch()
+    const openNewItemModal = (state: boolean) => {
+      dispatch(toggle(state))
+    }
+
+	  const showModal = useAppSelector(selectedValue) as boolean
+
+    const onChange = (e: any, label: string) => {
+      console.log('input data', e.target.value, 'label', label)
+    }
+
+    const submitNewQuestion = () => {
+
+    }
+
     return (
     <>
         <Head>
@@ -23,7 +41,11 @@ export default function Layout({
                     <div className="flex-1 align-middle">
                      <h3 className={`font-extrabold text-2xl isGray ${styles.lineHeight68}`}>{pageTitle}</h3>
                     </div>
-                    <button className={`h-8 radius-2.5 text-xs font-normal rounded-l rounded-r mt-4 ml-4 px-4 ${styles.bgGreen}`}>سوال جدید</button>
+                    <button 
+                      className={`h-8 radius-2.5 text-xs font-normal rounded-l rounded-r mt-4 ml-4 px-4 ${styles.bgGreen}`} 
+                      onClick={() => openNewItemModal(true)}>
+                        سوال جدید
+                      </button>
                     <div className="isGray font-normal mt-6 text-sm pl-4">طاهره غلامی</div>
                   </div>
                 </div>
@@ -31,7 +53,35 @@ export default function Layout({
             <main className={`pt-4 ${styles.main}`}>
               {children}
             </main>
+            {showModal && 
+              <>
+              <div className={`${styles.modalBlackBg} w-full h-full fixed top-0 right-0 z-10`} />
+                <div className={`z-20 fixed top-40 rounded-lg ${styles.modal}`}>
+                  <div className='relative w-full'>
+                    <div className={`${styles.modalHeader} h-12 rounded-lg  px-6 flex`}>
+                      <p className={`text-normal font-extrabold isGray ${styles.modalTitle}`}>ایجاد سوال جدید</p>
+                      <button 
+                        className=""
+                        onClick={() => openNewItemModal(false)}>
+                        <CloseIcon />
+                      </button>
+                    </div>
+                    <div className={`${styles.modalBody} px-6 py-3`}>
+                      <section className={styles.inputComponent}>
+                        <label>موضوع</label>
+                        <input type="text" onChange={(e) => onChange(e, 'title')}/>
+                      </section>
+                      <section className={styles.inputComponent}>
+                        <label>متن سوال</label>
+                        <textarea onChange={(e) => onChange(e, 'body')}/>
+                      </section>
+                    </div>
+                  </div>
+                </div>
+              </>}
         </section>
     </>
     );
   }
+
+export default Layout

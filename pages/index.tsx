@@ -15,14 +15,15 @@ export default function Home() {
 
   const childrenNode =
     <div className="container">
-      <>
-        {loading && <div>loading</div>}
-        {loaded && result.map((question: IQuestion) => {
-          return <QuestionCard item={question} key={question.id} />
-        })}
-        {questions.error && <div>error</div>}
-      </>
-  </div>
+        <>
+          {loading && <div>loading</div>}
+          {loaded && result.map((question: IQuestion) => {
+            return <QuestionCard item={question} key={question.id} />
+          })}
+          {questions.error && <div>error</div>}
+        </>
+    </div>
+
 
   return (
     <Layout children={childrenNode} pageTitle={'لیست سوالات'} />
