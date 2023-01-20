@@ -8,7 +8,7 @@ import Image from 'next/image'
 export default function QuestionCard(props: { item : IQuestion }) {
     const { item } = props
     return (
-        <section className={`flex w-full flex-col mt-5 rounded-lg ${styles.cardWrapper}`}>
+        <div className={`flex w-full flex-col mt-5 rounded-lg ${styles.cardWrapper}`}>
             <div className={`flex flex-row w-full h-12 pr-4 pl-4 rounded-lg ${styles.cardHeader}`}>
                 <div>
                     <Image
@@ -45,6 +45,6 @@ export default function QuestionCard(props: { item : IQuestion }) {
                     </Link>
                 </div>
             </div>
-        </section>
+        </div>
     )
 }

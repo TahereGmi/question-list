@@ -1,8 +1,13 @@
 import Head from 'next/head'
-import { useState } from 'react'
 import styles from './layout.module.scss'
 import CloseIcon from '../../../public/images/svg/close.svg'
 import { toggle, useAppDispatch, selectedValue, useAppSelector } from 'store/reducers/toggleModalReducer'
+import { Formik, Form, useField } from 'formik';
+
+interface MyFormValues {
+  title: string,
+  body: string
+}
 
 function Layout ({
     children,
@@ -12,19 +17,34 @@ function Layout ({
     pageTitle: string
   }) {
     const dispatch = useAppDispatch()
+
     const openNewItemModal = (state: boolean) => {
       dispatch(toggle(state))
     }
 
+    const initialValues: MyFormValues = { title: '', body: '' };
+
 	  const showModal = useAppSelector(selectedValue) as boolean
 
-    const onChange = (e: any, label: string) => {
-      console.log('input data', e.target.value, 'label', label)
-    }
+    const ModalTextInput = ({ label, name, placeholder, className } : { label: string, name: string, placeholder: string, className: string }) => {
+      const [field, meta] = useField(name);
+      return (
+        <div className={`w-full ${className}`}>
+          <label className="text-xs w-full block mb-2.5 mt-2" htmlFor={name}>{label}</label>
+          <input className={`w-full rounded-sm pr-2 py-1 ${styles.input}`} type="text" placeholder={placeholder} {...field}/>
+        </div>
+      );
+    };
 
-    const submitNewQuestion = () => {
-
-    }
+    const ModalTextArea = ({ label, name, placeholder, rows, className } : { label: string, name: string, placeholder: string, rows: string, className: string }) => {
+      const [field, meta] = useField(name);
+      return (
+          <div className={`w-full ${className}`}>
+            <label className="text-xs w-full block mb-2.5 mt-3.5" htmlFor={name}>{label}</label>
+            <textarea className={`w-full rounded-sm pr-2 py-1 ${styles.input}`} placeholder={placeholder} rows={Number(rows)} {...field} id={name} />
+          </div>
+      );
+    };
 
     return (
     <>
@@ -34,7 +54,7 @@ function Layout ({
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
         </Head>
-        <section>
+        <div>
             <header className="header">
                 <div className="container">
                   <div className="flex w-full h-16">
@@ -67,19 +87,49 @@ function Layout ({
                       </button>
                     </div>
                     <div className={`${styles.modalBody} px-6 py-3`}>
-                      <section className={styles.inputComponent}>
-                        <label>موضوع</label>
-                        <input type="text" onChange={(e) => onChange(e, 'title')}/>
-                      </section>
-                      <section className={styles.inputComponent}>
-                        <label>متن سوال</label>
-                        <textarea onChange={(e) => onChange(e, 'body')}/>
-                      </section>
+                        <Formik
+                          initialValues={initialValues}
+                          onSubmit={(values, actions) => {
+                            const questionsArray = JSON.parse(localStorage.getItem('questions') || '[]')
+                            const newQuestion = {
+                              ...values,
+                              userId: Math.floor(Math.random() * 340),
+                              id: Math.floor(Math.random() * 980),
+                              commentCount: 0,
+                              time: '۱۳:۴۵',
+                              date: '۱۴۰۰/۲/۱۶'
+                            }
+                            questionsArray.push(newQuestion)
+                            localStorage.setItem('questions', JSON.stringify(questionsArray))
+                            actions.setSubmitting(false);
+                            openNewItemModal(false)
+                          }}
+                        >
+                          <Form>
+                            <ModalTextInput
+                              label="موضوع"
+                              name="title"
+                              className={styles.modalInput}
+                              placeholder="مشکل در اجرای کد" 
+                            />
+                             <ModalTextArea
+                              label="متن سوال"
+                              name="body"
+                              className={styles.modalInput}
+                              placeholder="مشکل در اجرای کد" 
+                              rows="6"
+                            />
+                            <div className='flex flex-row-reverse mt-5'>
+                              <button type="submit" className={`${styles.modalSubmitBtn} pl-5 pr-5 py-1.5`}>ایجاد سوال</button>
+                              <button className={`${styles.modalCancelBtn} pl-5 pr-5 py-1.5`} onClick={() => openNewItemModal(false)}>انصراف</button>
+                            </div>
+                          </Form>
+                        </Formik>
                     </div>
                   </div>
                 </div>
               </>}
-        </section>
+        </div>
     </>
     );
   }
