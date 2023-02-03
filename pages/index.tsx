@@ -21,17 +21,15 @@ export default function Home() {
     localStorage.setItem('questions', JSON.stringify(result))
   }, [loaded])
 
-  const childrenNode =
-    <div className="container">
+  return (
+    <Layout pageTitle={'لیست سوالات'}>
+      <div className="container">
         <>
           {loading && <div>loading</div>}
           {loaded && result.length > 0 && result.map((question: IQuestion) => <QuestionCard item={question} key={question.id} /> )}
           {questions.error && <div>error</div>}
         </>
-    </div>
-
-
-  return (
-    <Layout children={childrenNode} pageTitle={'لیست سوالات'} />
+      </div>
+    </Layout>
   )
 }
